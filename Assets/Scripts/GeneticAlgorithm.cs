@@ -6,14 +6,21 @@ using UnityEngine;
 //　遺伝的アルゴリズム
 public class GeneticAlgorithm<T> {
 
-    public List<DNA<T>> Population { get; private set; }    // 個体群
+    public List<DNA<T>> Population { get; private set; }    // 現在個体群
     public int Generation;                                  // 世代
     public int PointLength;                                 // 点の数
 
     // コンストラクタ
-    public GeneticAlgorithm()
+    public GeneticAlgorithm(
+        int populationSize                                  // 個体の数
+    )
     {
+        // 初期世代調整
         Generation = 1;
+
+        // 現世代の個体群作成
+        Population = new List<DNA<T>>(populationSize);
+
     }
 
     // 次世代作成
