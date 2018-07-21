@@ -4,21 +4,18 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    // 各ポイント取得
-    public GameObject[] Points;
+    int generation;                                         // 世代
+    public GameObject[] originalPoints;                     // 初期位置
+    int pointLength;                                        // 点の数
 
-    // コンストラクタ
-    public PlayerController()
-    {
-        
-    }
 
     // 開始時
 	void Start () {
-        // ポイント情報を取得
-        Points = GameObject.FindGameObjectsWithTag("CheckPoint");
+        generation = 0;
+        originalPoints = GameObject.FindGameObjectsWithTag("CheckPoint");
+        pointLength = originalPoints.Length;
     }
-	
+
 	// Update is called once per frame
 	void Update () {
 		
