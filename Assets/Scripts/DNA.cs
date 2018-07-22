@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+using System.Linq;
+
+
 
 
 // 染色体情報
@@ -13,24 +17,29 @@ public class DNA<T>{
     public float Fitness { get; private set; }
 
     // 突然変異用の乱数機
-    private Random random;
+    private System.Random random;
+
+    // ルートリスト作成
+    private T[] rootList;
+    
 
     // 初期設定
     public DNA(
-        int size,                   // 遺伝子の数（ポイント数）
-        bool shouldInitGene = true  // 初期化設定
+        int size,                       // 遺伝子の数（ポイント数）
+        T[] rootList,                   // ランダム用の関数追加
+        bool shouldInitGene = true      // 初期化設定
     )
     {
         // 空のリストを用意
         Genes = new T[size];
-        
-        // 初回のみ、適当なポイントを設定
+
+        // ランダムルート関数追加
+        this.rootList = rootList;
+
+        // 初回のみ、ランダムなポイントを指定
         if (shouldInitGene)
         {
-            for (int i = 0; i < Genes.Length; i++)
-            {
-                // Genes[i] = RandomRoot;
-            }
+            Genes = rootList.OrderBy(i => Guid.NewGuid()).ToArray();
         }
     }
 
@@ -52,4 +61,6 @@ public class DNA<T>{
             }
         }
     }
+
+
 }

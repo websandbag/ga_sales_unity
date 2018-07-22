@@ -5,26 +5,41 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    int generation;                                         // 世代
-    public GameObject[] originalPoints;                     // 初期位置
-    int pointLength;                                        // 点の数
+    [SerializeField] public int populationSize = 10;
 
-    private GeneticAlgorithm<char> ga;
+    private int generation;                             // 世代
+    private GameObject[] originalPoints;                // 初期位置
+
+
+    private GeneticAlgorithm<int> ga;
     private System.Random random;
 
     // 開始時
     void Start () {
         generation = 0;
         originalPoints = GameObject.FindGameObjectsWithTag("CheckPoint");
-        pointLength = originalPoints.Length;
 
-        ga = new GeneticAlgorithm<char>(
-            pointLength
+        // 遺伝的アルゴリズムの初期設定
+        ga = new GeneticAlgorithm<int>(
+            populationSize,                             // 個体数
+            originalPoints.Length,                      // チェックポイント数
+            GetRootIDs()                                // チェックポイントID
         );
     }
 
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    // フレーム単位の更新処理
+    void Update () {
+
+    }
+
+    // ルートのゲームオブジェクトを取得
+    private int[] GetRootIDs()
+    {
+        var ids = new int[originalPoints.Length];
+        for (int i = 0; i < originalPoints.Length; i++)
+        {
+            ids[i] = originalPoints[i].GetInstanceID();
+        }        
+        return ids;
+    }
 }
