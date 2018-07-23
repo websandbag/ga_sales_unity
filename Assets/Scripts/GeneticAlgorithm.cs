@@ -8,10 +8,11 @@ using UnityEngine;
 public class GeneticAlgorithm<T> {
 
     public List<DNA<T>> Population { get; private set; }    // 現在個体群
-    public int Generation;                                  // 世代
-    public int PointLength;                                 // 点の数
-
-    private T[] rootList;
+    public int Generation { get; private set; }             // 世代
+    public int PointLength { get; private set; }            // 点の数
+    public float BestFitness { get; private set; }          // 最短経路の距離
+    public T[] BestPath {get; private set;}                 // 最短経路
+    public T[] Original { get; private set; }               // ルート一覧
 
 
     // コンストラクタ
@@ -24,12 +25,14 @@ public class GeneticAlgorithm<T> {
         // 初期世代調整
         Generation = 1;
 
-        // ランダムルート用の関数追加
-        this.rootList = rootList;
+        // 最新
+        this.Original = rootList;
 
         // 現世代の個体群作成
-        // 空List作成
         Population = new List<DNA<T>>(populationSize);
+
+        // 最短経路
+        BestPath = new T[dnaSize];
 
         // 個体追加
         for (int i = 0; i < populationSize; i++)
@@ -37,19 +40,19 @@ public class GeneticAlgorithm<T> {
             // 個体群に個体追加
             Population.Add(new DNA<T>(
                 populationSize,
-                rootList
+                Original
             ));
         }
     }
 
-    // 次世代作成
-    private void NewGeneration()
+    // 適応度比較
+    private void CompareDNA(DNA<T> a, DNA<T> b)
     {
 
     }
 
-    // 適応度比較
-    private void CompareDNA(DNA<T> a, DNA<T> b)
+    // 次世代作成
+    private void NewGeneration()
     {
 
     }

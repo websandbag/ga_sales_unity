@@ -5,8 +5,6 @@ using UnityEngine;
 using System.Linq;
 
 
-
-
 // 染色体情報
 public class DNA<T>{
 
@@ -20,13 +18,13 @@ public class DNA<T>{
     private System.Random random;
 
     // ルートリスト作成
-    private T[] rootList;
+    private T[] original;
     
 
     // 初期設定
     public DNA(
         int size,                       // 遺伝子の数（ポイント数）
-        T[] rootList,                   // ランダム用の関数追加
+        T[] original,                   // ランダム用の関数追加
         bool shouldInitGene = true      // 初期化設定
     )
     {
@@ -34,12 +32,12 @@ public class DNA<T>{
         Genes = new T[size];
 
         // ランダムルート関数追加
-        this.rootList = rootList;
+        this.original = original;
 
         // 初回のみ、ランダムなポイントを指定
         if (shouldInitGene)
         {
-            Genes = rootList.OrderBy(i => Guid.NewGuid()).ToArray();
+            Genes = original.OrderBy(i => Guid.NewGuid()).ToArray();
         }
     }
 
